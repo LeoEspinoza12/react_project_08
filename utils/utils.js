@@ -6,15 +6,16 @@ const Utility = (userId, res) => {
 
   Dashboard.find({user: userId})
     .sort({date: 'descending'})
-    .then(dashboard)
+    .then(dashboard => {
       if(dashboard.length === 0){
-        mesg.message = 'You dont have any lists!'
+        mesg.message = 'You dont have any dashboards!'
         return res.status(200).json({mesg})
       } else if (!dashboard){
-        mesg.message = 'List is not found!'
+        mesg.message = 'Dashboard is not found!'
         return res.status(200).json({mesg})
       }
-    return res.status(200).json({dashboard})
+        return res.status(200).json({dashboard})
+    })
     .catch(err => {
       mesg.error = err
       return res.status(200).json({mesg})

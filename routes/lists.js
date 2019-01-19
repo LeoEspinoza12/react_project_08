@@ -3,6 +3,7 @@
 const express = require('express')
 const passport = require('passport')
 const router = express.Router()
+const Utility = require('../utils/utils')
 
 const Dashboard = require('../models/Dashboard')
 
@@ -24,11 +25,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}),(req, res)
       })
         dashboard.save()
           .then(newDashboard => {
-            Dashboard.find({user: req.user.id})
-              .sort({date: 'descending'})
-              .then(dashboardList => {
-                return res.status(200).json({dashboardList})
-              })
+            return Utility(req.user.id, res)
           })
     })
     .catch(err => {
@@ -60,11 +57,7 @@ router.put('/update/:id', passport.authenticate('jwt', {session:false}), (req, r
           dashboard.lists = listItem
           dashboard.save()
             .then(dashboardList => {
-              Dashboard.find({user: req.user.id})
-                .sort({date: 'descending'})
-                .then(dashboardList => {
-                  return res.status(200).json({dashboardList})
-                }) 
+              return Utility(req.user.id, res)
             })
         }
       })
@@ -93,11 +86,7 @@ router.delete('/delete/:id', passport.authenticate('jwt', {session: false}), (re
           dashboard.lists = lists
           dashboard.save()
             .then(dashboardList => {
-              Dashboard.find({user: req.user.id})
-                .sort({date: 'descending'})
-                .then(dashboardList => {
-                  return res.status(200).json({dashboardList})
-                }) 
+              return Utility(req.user.id, res)
             })
         }
     })

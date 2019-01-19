@@ -3,6 +3,7 @@
 const express = require('express')
 const passport = require('passport')
 const router = express.Router()
+const Utility = require('../utils/utils')
 
 const Dashboard = require('../models/Dashboard')
 
@@ -45,8 +46,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req,res)
           mesg.error = 'Dashboard was not created!'
           return res.status(200).json({mesg})
         } 
-        // query to the database and then return all dashboards
-        return res.status(200).json({dashboard})
+        return Utility(req.user.id, res)
       })
       .catch(err => {
         mesg.error = err
@@ -71,12 +71,7 @@ router.put('/update/:id',passport.authenticate('jwt',{session: false}), (req, re
           dashboard.name = req.body.name;
           dashboard.save()
             .then(newDashboard =>{
-              // qeury and then return
-              Dashboard.find({user: req.user.id})
-                .sort({date: 'descending'})
-                .then(dashboards=>{
-                  return res.status(200).json({dashboards})
-                })
+              return Utility(req.user.id, res)
             })
         }
     })
@@ -100,17 +95,7 @@ const mesg = {}
           mesg.error = 'List is not found!'
           return res.status(200).json({mesg})
         } else {
-          // query and then return
-          Dashboard.find({user: req.user.id})
-          .sort({date: 'descending'})
-          .populate('user')
-          .then(dashboard=>{
-            if(dashboard.length === 0){
-              mesg.error = 'You dont have any dashboards!'
-              return res.status(200).json({mesg})
-            }
-            return res.status(200).json({dashboard})
-          })
+          return Utility(req.user.id, res)
         }
     })
     .catch(err=>{
