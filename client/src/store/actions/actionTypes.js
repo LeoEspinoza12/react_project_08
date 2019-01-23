@@ -1,0 +1,10 @@
+
+
+export const LOADING = 'LOADING';
+
+export const REGISTER_USER = 'REGISTER_USER';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const AUTH_REGISTER_SUCCESS = 'AUTH_REGISTER_SUCCESS';
+export const AUTH_LOGIN = 'AUTH_LOGIN';
+export const AUTH_SET_CURRENT_USER = 'AUTH_SET_CURRENT_USER';
+export const AUTH_USER_LOGOUT = 'AUTH_USER_LOGOUT'

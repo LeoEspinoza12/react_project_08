@@ -5,7 +5,6 @@ const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const secret = require('../config/keys')
-const passport = require('passport')
 
 const User = require('../models/Users')
 
@@ -17,15 +16,17 @@ router.post('/register', (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   // set errors objects
-  const errors = {};
 
   User.findOne({email})
     .then((user) => {
       // if email does not exists
       if(user){
         // return error if email exists
-        errors.email = 'Email already exists!'
-        return res.status(400).json({errors});
+        
+        return res.status(400).json({
+          mesg: 'Email already exists!',
+          type: 'danger'
+        });
       } else {
         // if email does not exists 
 
@@ -42,13 +43,22 @@ router.post('/register', (req, res, next) => {
               newUser.save()
                 .then(user=>{
                   // return a 200 status with the user
-                  res.status(200).json(user);
+                  return res.status(200).json({
+                    user: user, 
+                    mesg: 'Registration successful!',
+                    type: 'success'
+                  });
                 })
                 // return error if there is an error
-                .catch(err => console.log(err));
+                .catch(err => {
+                  return res.status(400).json(err);
+                });
           });
         });
       };
+  })
+  .catch(err => {
+    return res.json({err})
   }); 
 });
 
@@ -60,15 +70,17 @@ router.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password
   // set errors variables
-  const errors = {}
-  
+  const mesg = {}
+
   User.findOne({email})
-    .then(user => {
-      // if user does not exists
-      if(!user){
+  .then(user => {
+    // if user does not exists
+    if(!user){
         // return error with status 400
-        errors.email = 'Email does not exists!'
-        return res.status(400).json({errors})
+        return res.status(400).json({
+          mesg: 'Email does not exists!',
+          type: 'danger'
+        })
       } else {
         // if user exists, compare password
         bcrypt.compare(password, user.password)
@@ -76,20 +88,26 @@ router.post('/login', (req, res) => {
             // if password matched / create a token
         if(isMatch){
           const payload = { id: user.id, email: user.email }
-              
+          
           jwt.sign(payload, secret.secretOrKey, {expiresIn: 3600}, (err, token) =>{
-            res.json({
+            return res.status(200).json({
               sucess: true,
-              token: `Bearer ${token}`
+              token: `Bearer ${token}`,
+              type: 'success'
             })
           })
         } else {
           // if not matched, send an error response with 400 status
-          errors.password = 'Password is incorrect!'
-          return res.status(400).json({errors})
+          return res.status(400).json({
+            mesg: 'Password is incorrect!',
+            type: 'danger'
+          })
         }
       })
     }
+  })
+  .catch(err => {
+    return res.json({err})
   })
 })
 
