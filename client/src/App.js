@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import setAuthToken from './utils/setAuthToken'
 import jwt_decode from 'jwt-decode'
-import {logoutUser, setCurrentUser} from './store/actions/index'
+import {logoutUser, setCurrentUser, fetchDashboard} from './store/actions/index'
 
 import store from './store'
 
@@ -29,6 +29,7 @@ if(localStorage.jwtToken){
   const decoded = jwt_decode(localStorage.jwtToken);
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded))
+  store.dispatch(fetchDashboard())
 
   // Check for expired token
   const currentTime = Date.now() / 1000;
@@ -77,15 +78,7 @@ class App extends Component {
 
 
               {/* Empty Dashboard */}
-            {/* <div className="row"> 
-              <div className="col-sm-6 offset-sm-3">
-              <div class="card Empty">
-              <h5 class="card-header">Your dashboard is empty!</h5>
-              </div>
-              </div>
-              <div className="col-sm-3"></div>
-            </div>     */}
-
+        
 
 
           </div>

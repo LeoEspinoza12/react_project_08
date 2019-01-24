@@ -7,3 +7,8 @@ export {
   setCurrentUser,
   logoutUser
 } from './auth'
+
+export {
+  fetchDashboard,
+  createDashboard
+} from './dashboard'

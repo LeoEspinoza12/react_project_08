@@ -16,12 +16,12 @@ router.get('/', passport.authenticate('jwt', {session: false}),  (req, res) => {
 
   Dashboard.find({user: req.user.id})
     .sort({date: 'descending'})
-    .then(dashboards =>{
-      if(dashboards.length === 0){
+    .then(dashboard =>{
+      if(dashboard.length === 0){
         mesg.message = `You don't have any dashboards!`
         return res.status(200).json({mesg})
       }
-      return res.status(200).json({dashboards})
+      return res.status(200).json({dashboard})
     })
     .catch(err => {
       mesg.error = err
@@ -38,7 +38,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req,res)
   const name = req.body.name;
   const user = req.user.id
   const mesg = {}
-  
+
   const newDashboard = new Dashboard({user, name})
     newDashboard.save()
       .then(dashboard => {
