@@ -29,6 +29,31 @@ export const createDashboard = (userData) => dispatch => {
 export const setDashboard = (data) => {
   return {
     type: actionType.DASHBOARD_CREATE,
-    payload: data
+    payload: {
+      dashboard: data.dashboard,
+      mesg: data.mesg
+    }
   }
+}
+
+export const editDashboard = (dashId, dashName) => dispatch => {
+  axios.put('/api/dashboard/update/'+ dashId, {name: dashName})
+    .then(res =>{
+      dispatch(setDashboard(res.data))
+    })  
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+export const deleteDashboard = (dashId) => dispatch => {
+  axios.delete('/api/dashboard/delete/'+ dashId)
+    .then(res =>{
+        dispatch(setDashboard(res.data))
+    })  
+    .catch(err => {
+      console.log(err)
+    })
+
+
 }

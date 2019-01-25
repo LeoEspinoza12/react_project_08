@@ -61,7 +61,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req,res)
 // @access  Private
 router.put('/update/:id',passport.authenticate('jwt',{session: false}), (req, res)=>{
   const mesg = {}
-  
+
   Dashboard.findById({_id: req.params.id})
     .then(dashboard => {
       if(!dashboard){

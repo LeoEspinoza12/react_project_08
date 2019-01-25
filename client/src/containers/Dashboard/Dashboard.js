@@ -22,27 +22,25 @@ class Dashboard extends Component {
     <Fragment>
       <div className="col-sm-6 offset-sm-3">
         <div className="card Empty">
-        <h5 className="card-header">Your dashboard is empty!</h5>
+        <h5 className="card-header">
+          {dashboard.mesg ? dashboard.mesg.message : ''}
+        </h5>
         </div>
       </div>
       <div className="col-sm-3"></div>
     </Fragment>
 
   } else {
-   dashboardItems = dashboard.dashboard.map(dashItem => {
-      return <DashboardList dashItem={dashItem}/>
+   dashboardItems = dashboard.dashboard.map((dashItem,i )=> {
+      return <DashboardList 
+              key={i}
+              dashItem={dashItem}/>
     })
-     
   }
-
-
-
-
-
-    return (
-      <div className="add row">
-        {authRedirect}
-        {dashboardItems}
+  return (
+    <div className="add row">
+      {authRedirect}
+      {dashboardItems}
 
 
     

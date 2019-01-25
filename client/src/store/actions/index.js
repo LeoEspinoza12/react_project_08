@@ -10,5 +10,11 @@ export {
 
 export {
   fetchDashboard,
-  createDashboard
+  createDashboard,
+  editDashboard,
+  deleteDashboard
 } from './dashboard'
+
+export {
+  addDashboardList
+} from './lists'

@@ -1,38 +1,56 @@
 import React, { Component } from 'react'
-import moment from 'moment'
+import {connect} from 'react-redux'
+import * as action from '../../../store/actions/index'
 import Fragment from '../../../utils/Fragment'
+import DashHeading from '../../../components/Dashboards/DashHeading'
+import ListItems from '../Lists/Lists'
 
 class DashboardLists extends Component {
 
+  constructor(){
+    super()
+      this.state = {
+        listItem: ''
+      }
+    
+    this.onClick = this.onClick.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+onChange=(e)=>{
+  this.setState({listItem: e.target.value})
+}
 
+onSubmit=(id)=>{
+  console.log(id, this.state.listItem)
+}
+
+onClick =(id) => {
+  this.props.deleteDashboard(id)
+}
 
   render() {
-
     let dashboardList = this.props.dashItem
-    console.log(dashboardList)
+
+    let listItems = <ListItems 
+                      lists={dashboardList.lists}/>
     let dashboard = 
         <div className="col-sm-4 Col">
         <div className="card List">
           <div className="card-body">
-            <button type="button" className="close" aria-label="Close">
+            <button 
+              className="close" 
+              aria-label="Close"
+              onClick={()=>this.onClick(dashboardList._id)}>
               <span aria-hidden="true">&times;</span>
             </button>
             <div className="DashHeader">
+              <DashHeading 
+                dashHeadingId={dashboardList._id}
+                dashHeadingTime={dashboardList.date}
+                dashHeadingName={dashboardList.name}/>
 
-              <h5 className="card-title">{dashboardList.name}</h5>
-              <span className="card-text date">
-                {moment(dashboardList.date).format('dddd')}, {' '}
-                {moment(dashboardList.date).format('Do')} {' '}
-                 <i>{moment(dashboardList.date).format('MMMM')}</i></span>
-
-              {/* <div className="input-group DashInput">
-                <input type="text" className="form-control" placeholder="Grocery List"/>
-                <div className="input-group-append">
-                  <button className="btn btn-outline-secondary" type="button" aria-haspopup="true">
-                    <i className="fas fa-edit fa-xs"></i>
-                  </button>
-                </div>
-              </div> */}
+              
             </div>
             <div className="ListSum">
               <h5 className="card-title">{dashboardList.lists.length}</h5>
@@ -40,18 +58,26 @@ class DashboardLists extends Component {
               {dashboardList.lists.length <= 1 ? 'List' : 'Lists'}
               </span>
             </div>
-            {/* <hr/> */}
             <div className="input-group DashInput">
-              <input type="text" className="form-control"/>
+              <input 
+                type="text" 
+                name='listitem'
+                className="form-control"
+                placeholder='Enter todos'
+                value={this.state.listItem}
+                onChange={(e)=>this.onChange(e)}/>
               <div className="input-group-append">
-                <button className="btn btn-outline-secondary" type="button" aria-haspopup="true">
+                <button 
+                  className="btn btn-outline-secondary" 
+                  type="button" 
+                  onClick={()=>this.onSubmit(dashboardList._id)}>
                 <i className="fas fa-plus fa-xs"></i>
                 </button>
               </div>
             </div>
                     
-
-            <h1 className="display-4 None">No lists.</h1>
+              {listItems}
+            
           </div>
         </div>
       </div>
@@ -71,4 +97,12 @@ class DashboardLists extends Component {
     )
   }
 }
-export default DashboardLists
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    deleteDashboard: (id)=>{dispatch(action.deleteDashboard(id))},
+    addList: ()=>{}
+  }
+}
+
+export default connect(null, mapDispatchToProps)(DashboardLists);
