@@ -16,5 +16,8 @@ export {
 } from './dashboard'
 
 export {
-  addDashboardList
+  addList,
+  editList,
+  deleteList,
+  updateListStatus
 } from './lists'

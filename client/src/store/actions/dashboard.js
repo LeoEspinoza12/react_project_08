@@ -42,7 +42,7 @@ export const editDashboard = (dashId, dashName) => dispatch => {
       dispatch(setDashboard(res.data))
     })  
     .catch(err => {
-      console.log(err)
+      console.log(err.response)
     })
 }
 
@@ -52,8 +52,6 @@ export const deleteDashboard = (dashId) => dispatch => {
         dispatch(setDashboard(res.data))
     })  
     .catch(err => {
-      console.log(err)
+      console.log(err.response)
     })
-
-
 }

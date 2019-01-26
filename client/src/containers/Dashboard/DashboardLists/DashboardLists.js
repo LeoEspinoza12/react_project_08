@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import * as action from '../../../store/actions/index'
 import Fragment from '../../../utils/Fragment'
-import DashHeading from '../../../components/Dashboards/DashHeading'
+import DashHeading from '../../../components/Dashboards/Dashboard/DashHeading'
 import ListItems from '../Lists/Lists'
 
 class DashboardLists extends Component {
@@ -22,7 +22,8 @@ onChange=(e)=>{
 }
 
 onSubmit=(id)=>{
-  console.log(id, this.state.listItem)
+  this.props.addDashboardList(id, this.state.listItem)
+  this.setState({listItem: ''})
 }
 
 onClick =(id) => {
@@ -33,6 +34,7 @@ onClick =(id) => {
     let dashboardList = this.props.dashItem
 
     let listItems = <ListItems 
+                      dashId={dashboardList._id}
                       lists={dashboardList.lists}/>
     let dashboard = 
         <div className="col-sm-4 Col">
@@ -49,8 +51,6 @@ onClick =(id) => {
                 dashHeadingId={dashboardList._id}
                 dashHeadingTime={dashboardList.date}
                 dashHeadingName={dashboardList.name}/>
-
-              
             </div>
             <div className="ListSum">
               <h5 className="card-title">{dashboardList.lists.length}</h5>
@@ -75,21 +75,10 @@ onClick =(id) => {
                 </button>
               </div>
             </div>
-                    
               {listItems}
-            
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
     return (
       <Fragment>
         {dashboard}
@@ -101,7 +90,7 @@ onClick =(id) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     deleteDashboard: (id)=>{dispatch(action.deleteDashboard(id))},
-    addList: ()=>{}
+    addDashboardList: (id, text)=>{dispatch(action.addList(id, text))}
   }
 }
 

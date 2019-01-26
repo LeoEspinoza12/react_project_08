@@ -116,6 +116,11 @@
   width: 100%;
   line-height: 1;  
 }
+
+.ListGroup li p[class*='done'] {
+  text-decoration: line-through;
+  color:red
+}
 .ListGroup li p:hover {
   color: rgb(73,19,104);
   cursor: pointer;
