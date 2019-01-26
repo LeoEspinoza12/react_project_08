@@ -8,11 +8,11 @@ The app allows you to create multiple todolists dashboards<br>
 each containing your todo lists and it looks like this:<br>
 ![](client/src/lib/screen-shot.png)
 
-
 <br>
-### App Features
+## App Features
 
 This app allows CRUD dashboards and lists for each dashboards.<br>
 This app requires registration and login to so that you can use.<br>
+<br>
 Enjoy using the app!<br>
 
