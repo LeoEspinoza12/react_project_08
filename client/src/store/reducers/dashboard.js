@@ -9,7 +9,6 @@ const initialState = {
 
 
 const dashboardCreate = (state, payload) => {
-  // console.log(payload)
   return updateObject(state, {
     ...payload
   })

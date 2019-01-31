@@ -4,22 +4,15 @@ import {connect} from 'react-redux'
 import setAuthToken from './utils/setAuthToken'
 import jwt_decode from 'jwt-decode'
 import {logoutUser, setCurrentUser, fetchDashboard} from './store/actions/index'
-
 import store from './store'
-
 import Backdrop from './components/Backdrop/Backdrop'
 import Fragment from  './utils/Fragment'
-
-
 import Navbar from './containers/Navbar/Navbar'
 import Dashboard from './containers/Dashboard/Dashboard'
 import Login from './components/Auth/Login/Login'
 import Signup from './components/Auth/Signin/Signin'
 import Landing from './components/Landing/Landing'
-
 import './App.css';
-
-
 
 if(localStorage.jwtToken){
   // Set auth token header auth
@@ -42,12 +35,8 @@ if(localStorage.jwtToken){
 }
 
 
-
 class App extends Component {
-
-
   render() {
-
     let routes = (
       <Switch>
         <Route exact path='/signin' component={Signup} />
@@ -72,28 +61,17 @@ class App extends Component {
         <Backdrop />
         <Fragment className="Content">
         <Navbar />
-        <div className="container">
-          {routes}
-
-
-
-              {/* Empty Dashboard */}
-        
-
-
+          <div className="container">
+            {routes}
           </div>
-
-          
-
-
-          </Fragment>
-        </div>
-        </BrowserRouter>
-        );
+        </Fragment>
+      </div>
+    </BrowserRouter>
+    );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.isAuthenticated
   }

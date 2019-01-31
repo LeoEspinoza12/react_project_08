@@ -76,13 +76,13 @@ class Navbar extends Component {
   )}
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.isAuthenticated
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     logoutUser: () => {dispatch(action.logoutUser())
     }

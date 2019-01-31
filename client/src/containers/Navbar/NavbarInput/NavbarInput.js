@@ -71,7 +71,7 @@ if(this.state.addBtnClick){
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     createDashboard: (dashName) => {dispatch(action.createDashboard(dashName))
     }
