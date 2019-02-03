@@ -8,6 +8,7 @@ import store from './store'
 import Backdrop from './components/Backdrop/Backdrop'
 import Fragment from  './utils/Fragment'
 import Navbar from './containers/Navbar/Navbar'
+import getUser from './utils/getUserData'
 import Dashboard from './containers/Dashboard/Dashboard'
 import Login from './components/Auth/Login/Login'
 import Signup from './components/Auth/Signin/Signin'
@@ -36,6 +37,11 @@ if(localStorage.jwtToken){
 
 
 class App extends Component {
+
+  componentDidMount(){
+    getUser()
+  }
+
   render() {
     let routes = (
       <Switch>
