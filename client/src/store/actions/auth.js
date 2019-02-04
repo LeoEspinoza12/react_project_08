@@ -47,7 +47,7 @@ export const loginUser = (userData, history) => dispatch => {
       // decode the token to extract user id
       const decode = jwt_decode(token)
       // dispatch to create save the token in the state
-      console.log(decode)
+      // console.log(decode)
       dispatch(setCurrentUser(decode))
     })
     .catch(err => {

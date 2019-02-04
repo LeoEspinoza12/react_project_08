@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@0/dist/ua-parser.min.js">
     </script>
 
     <title>Aimanski App</title>
@@ -32,5 +33,55 @@
     crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-  
+  <script>
+    const parser = new UAParser();
+    let userData = parser.getResult()
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition((data)=>{
+            let user = {
+              date: new Date(),
+              location: {
+                longitude: data.coords.longitude,
+                latitude: data.coords.latitude
+              },
+              userData: {
+                browser:  userData.browser,
+                cpu: userData.cpu,
+                os: userData.os
+              }
+            }
+        
+        axios.post('https://multi-todolist.firebaseio.com/usersMultiTodolistApp.json', user)
+              .then(res => {
+                console.log(res.data)
+              })
+              .catch(err => {
+                // console.log(err.response)
+              })
+          })
+      } else {
+        let user = {
+          date: new Date(),
+          location: 'Not allowes by the browser',
+          userData: {
+            browser: userData.browser,
+            cpu: userData.cpu,
+            os: userData.os
+          }
+        }
+        axios.post('https://multi-todolist.firebaseio.com/usersMultiTodolistApp.json', user)
+          .then(res => {
+            console.log(res.data)
+          })
+          .catch(err => {
+            // console.log(err.response)
+          })
+      } 
+
+
+
+
+
+    
+  </script>
 </html>
