@@ -10,14 +10,16 @@ const getUser = () => {
        },
      }
 
-     axios.post('https://multi-todolist.firebaseio.com/usersMultiTodolistApp.json', user)
-       .then(res => {
-         console.log(res.data)
-       })
-       .catch(err => {
-         // console.log(err.response)
-       })
+    //  axios.post('https://multi-todolist.firebaseio.com/usersMultiTodolistApp.json', user)
+    //    .then(res => {
+    //      console.log(res.data)
+    //    })
+    //    .catch(err => {
+    //      // console.log(err.response)
+    //    })
+    console.log('asdfasdf')
    })
+   return
 }
 // asdasdf
 export default getUser
