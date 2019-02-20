@@ -17,7 +17,7 @@ const getUser = () => {
     //    .catch(err => {
     //      // console.log(err.response)
     //    })
-    console.log('asdfasdf')
+    // console.log('asdfasdf')
    })
    return
 }
