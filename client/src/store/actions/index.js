@@ -12,7 +12,8 @@ export {
   fetchDashboard,
   createDashboard,
   editDashboard,
-  deleteDashboard
+  deleteDashboard,
+  onLoadApp
 } from './dashboard'
 
 export {

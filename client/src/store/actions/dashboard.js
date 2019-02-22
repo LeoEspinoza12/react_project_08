@@ -55,3 +55,8 @@ export const deleteDashboard = (dashId) => dispatch => {
       console.log(err.response)
     })
 }
+
+
+export const onLoadApp = () =>{
+  
+}
