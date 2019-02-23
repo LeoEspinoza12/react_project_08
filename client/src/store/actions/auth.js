@@ -2,6 +2,7 @@
 
 import * as actionType from  './actionTypes'
 import setAuthToken from '../../utils/setAuthToken'
+import getUserData from '../../utils/getUserData'
 import jwt_decode from 'jwt-decode'
 import axios from 'axios'
 
@@ -75,4 +76,18 @@ export const logoutUser = () => {
   return {
     type: actionType.AUTH_USER_LOGOUT
   }
+}
+
+export const getUser = () => {
+  const user = getUserData()
+  axios.post('/api/users/getUser', user)
+    .then(res => {
+      // dispatch(authSuccess(history, res.data))
+    })
+    .catch(err=> {
+      // dispatch({
+      //   type: actionType.AUTH_ERROR,
+      //   payload: err.response.data
+      // })
+    })
 }

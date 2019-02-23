@@ -28,6 +28,7 @@
     "passport-jwt": "^4.0.0",
     "redux": "^4.0.1",
     "terser": "^3.14.1",
+    "ua-parser-js": "^0.7.19",
     "validator": "^10.11.0"
   }
 }

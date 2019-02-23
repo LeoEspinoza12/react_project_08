@@ -5,7 +5,8 @@ export {
   registerUser,
   loginUser,
   setCurrentUser,
-  logoutUser
+  logoutUser,
+  getUser
 } from './auth'
 
 export {

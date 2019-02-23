@@ -111,7 +111,10 @@ router.post('/login', (req, res) => {
   })
 })
 
-
+router.post('/getUser', (req, res)=>{
+  console.log(req.user)
+  
+})
 
 
 module.exports = router
