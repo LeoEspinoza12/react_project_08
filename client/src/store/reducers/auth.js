@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   isAuthenticated: false,
   authMessage: {},
+  userData: false,
   user: {}
 }
 
@@ -51,10 +52,16 @@ const authUserLogout = (state, action) => {
   })
 }
 
+const userData = (state) => {
+  return updateObject(state, {
+    userData: true
+  })
+}
 
 const authentication = (state = initialState, action) => {
   switch(action.type){
     case (actionType.LOADING): return loading(state);
+    case (actionType.USER_DATA): return userData(state);
     case (actionType.AUTH_ERROR): return getErrors(state, action.payload);
     case (actionType.AUTH_REGISTER_SUCCESS): return authRegisterSuccess(state, action.payload);
     case (actionType.AUTH_SET_CURRENT_USER): return authLoginSuccess(state, action.payload);

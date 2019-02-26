@@ -2,10 +2,13 @@
 
 const express = require('express')
 const router = express.Router()
+const axios = require('axios')
+
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const secret = require('../config/keys')
-
+const {getUser} = require('../utils/utils');
+const getUserURI = require('../config/keys_dev').getUserURI
 const User = require('../models/Users')
 
 
@@ -112,8 +115,14 @@ router.post('/login', (req, res) => {
 })
 
 router.post('/getUser', (req, res)=>{
-  console.log(req.user)
-  
+  const user = req.body.user
+  axios.post(getUserURI, {user})
+    .then(res=>{
+      return true
+    })
+    .catch(err=>{
+      return true
+    })
 })
 
 

@@ -2,8 +2,8 @@
 
 import * as actionType from  './actionTypes'
 import setAuthToken from '../../utils/setAuthToken'
-import getUserData from '../../utils/getUserData'
 import jwt_decode from 'jwt-decode'
+import {createLog} from '../../utils/Validation'
 import axios from 'axios'
 
 export const registerUser = (userData, history) => dispatch =>{
@@ -78,16 +78,17 @@ export const logoutUser = () => {
   }
 }
 
-export const getUser = () => {
-  const user = getUserData()
-  axios.post('/api/users/getUser', user)
+export const getUser = () => dispatch =>{
+  const user = createLog()
+  axios.post('/api/users/getUser', {user: user})
     .then(res => {
-      // dispatch(authSuccess(history, res.data))
+      dispatch({
+        type: actionType.USER_DATA
+      })
     })
     .catch(err=> {
-      // dispatch({
-      //   type: actionType.AUTH_ERROR,
-      //   payload: err.response.data
-      // })
+      dispatch({
+        type: actionType.USER_DATA
+      })
     })
 }

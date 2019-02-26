@@ -8,12 +8,12 @@ import store from './store'
 import Backdrop from './components/Backdrop/Backdrop'
 import Fragment from  './utils/Fragment'
 import Navbar from './containers/Navbar/Navbar'
-import getUser from './utils/getUserData'
 import Dashboard from './containers/Dashboard/Dashboard'
 import Login from './components/Auth/Login/Login'
 import Signup from './components/Auth/Signin/Signin'
 import Landing from './components/Landing/Landing'
 import './App.css';
+import * as action from './store/actions/index'
 
 if(localStorage.jwtToken){
   // Set auth token header auth
@@ -39,7 +39,7 @@ if(localStorage.jwtToken){
 class App extends Component {
 
   componentDidMount(){
-    getUser()
+    this.props.user()
   }
 
   render() {
@@ -83,4 +83,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    user: () => { dispatch(action.getUser()) }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);

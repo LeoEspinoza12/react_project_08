@@ -1,5 +1,7 @@
 const Dashboard = require('../models/Dashboard')
 
+
+
 const Utility = (userId, res) => {
 
   const mesg = {}
@@ -21,5 +23,9 @@ const Utility = (userId, res) => {
       return res.status(200).json({mesg})
     })
 }
+
+
+
+
 
 module.exports = Utility

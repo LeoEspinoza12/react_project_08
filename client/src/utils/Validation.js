@@ -1,5 +1,7 @@
 
 import * as action from './ValidationAction'
+import moment from 'moment'
+import UAParser from 'ua-parser-js'
 
 const validateEmail = (email) => {
    const emailPattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -32,4 +34,18 @@ export const isEmpty = (value) => {
   return value === undefined ||  value === null ||
   (typeof value === 'object' && Object.keys(value).length === 0) ||
   (typeof value === 'string' && value.trim().length === 0);
+}
+
+
+// create log to the server
+export const createLog = () => {
+  const uaParse = new UAParser()
+  const date = new Date()
+  const user = {
+    data: moment(date).format('LLL'),
+    browser: uaParse.getBrowser(),
+    device: uaParse.getDevice(),
+    processor: uaParse.getCPU(),
+  }
+  return user
 }
